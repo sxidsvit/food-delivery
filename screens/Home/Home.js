@@ -7,9 +7,9 @@ import {
     TextInput,
     FlatList
 } from 'react-native'
+import { FilterModal } from '../'
 import { HorizontalFoodCard, VerticalFoodCard } from '../../components'
 import { COLORS, FONTS, SIZES, icons, dummyData } from '../../constants'
-
 
 const Section = ({ title, onPress, children }) => {
     return (
@@ -49,6 +49,8 @@ const Home = () => {
     const [recommends, setRecommends] = React.useState([])
     const [popular, setPopular] = React.useState([])
     const [menuList, setMenuList] = React.useState([])
+
+    const [showFilterModal, setShowFilterModal] = React.useState(false)
 
 
     React.useEffect(() => {
@@ -114,7 +116,7 @@ const Home = () => {
 
                 {/* Filter Button */}
                 <TouchableOpacity
-                // onPress
+                    onPress={() => setShowFilterModal(true)}
                 >
                     <Image
                         source={icons.filter}
@@ -325,6 +327,14 @@ const Home = () => {
 
             {/* Search */}
             {renderSearch()}
+
+            {/* Filter Modal  */}
+            {showFilterModal &&
+                <FilterModal
+                    isVisible={showFilterModal}
+                    onClose={() => setShowFilterModal(false)}
+                />
+            }
 
             {/* List */}
             <FlatList
